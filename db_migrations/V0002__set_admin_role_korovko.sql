@@ -1,0 +1,1 @@
+UPDATE t_p71438704_fitness_app_content_.users SET role = 'admin' WHERE email = 'korovko.a1@icloud.com';
