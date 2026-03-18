@@ -1,5 +1,8 @@
 import { useState } from "react";
 import Icon from "@/components/ui/icon";
+import { useAuth } from "@/context/AuthContext";
+import AuthScreen from "@/components/auth/AuthScreen";
+import AdminPanel from "@/components/admin/AdminPanel";
 import { HomeSection, TrainingSection, ScheduleSection } from "@/components/sections/DashboardSections";
 import { NutritionSection } from "@/components/sections/NutritionSection";
 import { TrackersSection, ProgressSection, CommunitySection, SettingsSection } from "@/components/sections/LifestyleSections";
@@ -18,7 +21,29 @@ const NAV_ITEMS: { id: Section; label: string; icon: string }[] = [
 ];
 
 export default function App() {
+  const { user, loading } = useAuth();
   const [active, setActive] = useState<Section>("home");
+
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-background flex items-center justify-center">
+        <div className="flex flex-col items-center gap-3">
+          <div className="w-12 h-12 rounded-2xl bg-primary/20 flex items-center justify-center">
+            <Icon name="Dumbbell" size={24} className="text-primary animate-pulse" />
+          </div>
+          <p className="text-muted-foreground text-sm">Загрузка...</p>
+        </div>
+      </div>
+    );
+  }
+
+  if (!user) {
+    return <AuthScreen />;
+  }
+
+  if (user.role === "admin") {
+    return <AdminPanel />;
+  }
 
   const sections: Record<Section, React.ReactNode> = {
     home: <HomeSection />,
