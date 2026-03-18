@@ -57,33 +57,31 @@ export default function App() {
   };
 
   return (
-    <div className="min-h-screen bg-background flex flex-col items-center">
-      <div className="w-full max-w-md min-h-screen flex flex-col relative">
-        <div className="flex-1 overflow-y-auto pb-24 pt-6 px-4">
-          {sections[active]}
-        </div>
-
-        <nav className="fixed bottom-0 left-1/2 -translate-x-1/2 w-full max-w-md glass border-t border-border px-1 py-2 z-50">
-          <div className="grid grid-cols-8 gap-0">
-            {NAV_ITEMS.map((item) => (
-              <button
-                key={item.id}
-                onClick={() => setActive(item.id)}
-                className={`flex flex-col items-center gap-0.5 py-1 px-0.5 rounded-xl transition-all ${
-                  active === item.id ? "text-primary" : "text-muted-foreground hover:text-foreground"
-                }`}
-              >
-                <div className={`transition-transform ${active === item.id ? "scale-110" : ""}`}>
-                  <Icon name={item.icon} size={19} />
-                </div>
-                <span className="text-[8px] font-medium leading-none truncate w-full text-center">
-                  {item.label}
-                </span>
-              </button>
-            ))}
-          </div>
-        </nav>
+    <div className="min-h-screen bg-background flex flex-col">
+      <div className="flex-1 overflow-y-auto pb-20 pt-4 px-4">
+        {sections[active]}
       </div>
+
+      <nav className="fixed bottom-0 left-0 right-0 glass border-t border-border z-50 safe-area-bottom">
+        <div className="grid grid-cols-8 gap-0 px-1 py-2">
+          {NAV_ITEMS.map((item) => (
+            <button
+              key={item.id}
+              onClick={() => setActive(item.id)}
+              className={`flex flex-col items-center gap-1 py-1.5 px-0.5 rounded-xl transition-all ${
+                active === item.id ? "text-primary" : "text-muted-foreground hover:text-foreground"
+              }`}
+            >
+              <div className={`transition-all duration-200 ${active === item.id ? "scale-110" : ""}`}>
+                <Icon name={item.icon} size={20} />
+              </div>
+              <span className="text-[9px] font-medium leading-none truncate w-full text-center">
+                {item.label}
+              </span>
+            </button>
+          ))}
+        </div>
+      </nav>
     </div>
   );
 }
